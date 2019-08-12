@@ -1,0 +1,125 @@
+{
+    "operation-mode": "varied-image-responses",
+    "image-types": 3,
+    "destination-folder": "separate",
+    "destination-extension": "append",
+    "cache-control": "custom",
+    "cache-control-custom": "public, max-age=86400, stale-while-revalidate=604800, stale-if-error=604800",
+    "cache-control-max-age": "one-week",
+    "cache-control-public": false,
+    "enable-redirection-to-converter": true,
+    "only-redirect-to-converter-on-cache-miss": false,
+    "only-redirect-to-converter-for-webp-enabled-browsers": true,
+    "do-not-pass-source-in-query-string": true,
+    "redirect-to-existing-in-htaccess": true,
+    "forward-query-string": true,
+    "enable-redirection-to-webp-realizer": true,
+    "jpeg-encoding": "auto",
+    "jpeg-enable-near-lossless": true,
+    "jpeg-near-lossless": 60,
+    "quality-auto": true,
+    "max-quality": 80,
+    "quality-specific": 70,
+    "png-encoding": "auto",
+    "png-enable-near-lossless": true,
+    "png-near-lossless": 60,
+    "png-quality": 85,
+    "alpha-quality": 85,
+    "converters": [
+        {
+            "converter": "cwebp",
+            "options": {
+                "use-nice": true,
+                "try-common-system-paths": true,
+                "try-supplied-binary-for-os": true,
+                "method": 6,
+                "size-in-percentage": 45,
+                "low-memory": false,
+                "command-line-options": "-low_memory"
+            },
+            "working": true
+        },
+        {
+            "converter": "imagick",
+            "working": true,
+            "deactivated": true
+        },
+        {
+            "converter": "vips",
+            "options": {
+                "smart-subsample": false,
+                "preset": "none"
+            },
+            "working": false,
+            "deactivated": true
+        },
+        {
+            "converter": "wpc",
+            "options": {
+                "api-version": 1,
+                "crypt-api-key-in-transfer": false,
+                "api-url": "https://homolog.financeone.com.br/webp-express-web-service",
+                "api-key": "converter"
+            },
+            "working": false,
+            "deactivated": true
+        },
+        {
+            "converter": "imagemagick",
+            "options": {
+                "use-nice": true
+            },
+            "working": false,
+            "deactivated": true
+        },
+        {
+            "converter": "gd",
+            "working": false,
+            "deactivated": true
+        },
+        {
+            "converter": "gmagick",
+            "working": false,
+            "deactivated": true
+        },
+        {
+            "converter": "ewww",
+            "working": false,
+            "deactivated": true
+        },
+        {
+            "converter": "graphicsmagick",
+            "options": {
+                "use-nice": true
+            },
+            "working": false,
+            "deactivated": true
+        }
+    ],
+    "metadata": "none",
+    "convert-on-upload": true,
+    "fail": "original",
+    "success-response": "converted",
+    "alter-html": {
+        "enabled": true,
+        "only-for-webp-enabled-browsers": false,
+        "alter-html-add-picturefill-js": true,
+        "only-for-webps-that-exists": false,
+        "replacement": "picture",
+        "hooks": "ob"
+    },
+    "web-service": {
+        "enabled": false,
+        "whitelist": []
+    },
+    "paths-used-in-htaccess": {
+        "existing": "wp-content/webp-express/webp-images/doc-root/.",
+        "wod-url-path": "wp-content/plugins/webp-express/wod/webp-on-demand.php",
+        "config-dir-rel": "wp-content/webp-express/config"
+    },
+    "base-htaccess-on-these-capability-tests": {
+        "passThroughHeaderWorking": false,
+        "passThroughEnvWorking": true,
+        "modHeaderWorking": false
+    }
+}

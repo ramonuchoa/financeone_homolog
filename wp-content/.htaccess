@@ -1,0 +1,47 @@
+
+# BEGIN WebP Express
+# The rules below are a result of the WebP Express options, Wordpress configuration and the following .htaccess capability tests:
+# - mod_header working?: no
+# - pass variable from .htaccess to script through header working?: no
+# - pass variable from .htaccess to script through environment variable working?: yes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect to existing converted image in cache-dir (if browser supports webp)
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond %{DOCUMENT_ROOT}/wp-content/webp-express/webp-images/doc-root/wp-content/$1.$2.webp -f
+  RewriteRule ^/?(.+)\.(jpe?g|png)$ /wp-content/webp-express/webp-images/doc-root/wp-content/$1.$2.webp [NC,T=image/webp,E=EXISTING:1,L]
+
+  # Set Cache-Control header so these direct redirections also get the header set
+  # (and also webp-realizer.php)
+  <IfModule mod_headers.c>
+    <FilesMatch "\.webp$">
+      Header set Cache-Control "public, max-age=86400, stale-while-revalidate=604800, stale-if-error=604800"
+    </FilesMatch>
+  </IfModule>
+
+  # Fall back to mod_expires if mod_headers is unavailable
+  <IfModule !mod_headers.c>
+    <IfModule mod_expires.c>
+      ExpiresActive On
+      ExpiresByType image/webp "access plus 86400 seconds"
+    </IfModule>
+  </IfModule>
+
+  # WebP Realizer: Redirect non-existing webp images to webp-realizer.php, which will locate corresponding jpg/png, convert it, and deliver the webp (if possible) 
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^/?(.+)\.(webp)$ /wp-content/plugins/webp-express/wod/webp-realizer.php [E=DESTINATIONREL:wp-content/$0,E=WPCONTENT:wp-content,NC,L]
+
+  # Redirect images to webp-on-demand.php (if browser supports webp)
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond %{QUERY_STRING} (.*)
+  RewriteRule ^/?(.+)\.(jpe?g|png)$ /wp-content/plugins/webp-express/wod/webp-on-demand.php?%1 [E=REQFN:%{REQUEST_FILENAME},E=WPCONTENT:wp-content,NC,L]
+
+</IfModule>
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+</IfModule>
+
+# END WebP Express

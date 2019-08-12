@@ -1,0 +1,2 @@
+document.write('<iframe src="http://www.financeone.com.br/conversor/index.php?key='+f1_conversor_key+'" width="260" height="225" frameborder="0" scrolling="no" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>');
+document.write('<p style="font-family:Arial;font-size:11px;text-align:center;">Powered by <a href="http://www.financeone.com.br" target="_blank">FinanceOne</a></p>')

@@ -1,0 +1,61 @@
+version: '2'
+
+networks:
+    financeone:
+        driver: bridge
+
+services:
+    db:
+        image: mysql:latest
+        container_name: financeone_db
+        ports:
+            - 3306:3306
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_HOST: ${MYSQL_HOST}
+        networks:
+            - financeone
+
+    php:
+        image: estrategiamktdigital/php7.1-wordpress:latest
+        container_name: financeone_php
+        tty: true
+        expose:
+            - 9000
+        links:
+            - db:mysqldb
+        volumes:
+            - ${APP_PATH}:/var/www/${APP_NAME}
+            - ./wp-config.php:/var/www/${APP_NAME}/wp-config.php
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_HOST: ${MYSQL_HOST}
+            MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+        networks:
+            - financeone
+
+    nginx:
+        image: estrategiamktdigital/nginx-optimized:latest
+        container_name: financeone_nginx
+        entrypoint: nginx -g "daemon off;" -c /etc/nginx/nginx.conf
+        tty: true
+        ports:
+            - 80:80
+            - 443:443
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+            - ./docker/application.conf:/etc/nginx/conf.d/application.conf
+        networks:
+            - financeone

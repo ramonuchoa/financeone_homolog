@@ -1,0 +1,19 @@
+Sitemap: http://financeone.com.br/sitemap_index.xml
+# Forca visitacao
+User-agent: *
+Allow: /calculadoras/calculo-de-rescisao-trabalhista/
+Allow: /calculadoras/calculo-de-salario-liquido/
+Allow: /calculadoras/calculo-de-hora-extra/
+
+Allow: /guias/restituicao-irpf/
+Allow: /guias/tabela-irpf/
+Allow: /guias/como-consultar-o-fgts/
+
+Allow: /moedas/dolar-hoje/
+Allow: /moedas/euro-hoje/
+Allow: /moedas/conversor-de-moedas/
+Allow: /investimentos/rendimento-e-historico-da-poupanca/
+# Nao Permite
+User-agent: *
+Disallow: /wp-admin
+Disallow: /login-finance-one/

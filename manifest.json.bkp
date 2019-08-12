@@ -1,0 +1,7 @@
+{
+  "name": "Finance One",
+  "short_name": "FinanceOne",
+  "start_url": "/",
+  "display": "standalone",
+  "gcm_sender_id": "482941778795"
+}

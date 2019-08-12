@@ -1,0 +1,61 @@
+{
+    "wod": {
+        "enable-redirection-to-converter": true,
+        "enable-redirection-to-webp-realizer": true,
+        "base-htaccess-on-these-capability-tests": {
+            "passThroughHeaderWorking": false,
+            "passThroughEnvWorking": true,
+            "modHeaderWorking": false
+        },
+        "destination-extension": "append",
+        "destination-folder": "separate",
+        "forward-query-string": true,
+        "paths": {
+            "uploadDirRel": "wp-content/uploads"
+        },
+        "success-response": "converted"
+    },
+    "webp-convert": {
+        "serve-image": {
+            "headers": {
+                "cache-control": true,
+                "content-length": true,
+                "content-type": true,
+                "expires": true,
+                "last-modified": true
+            },
+            "cache-control-header": "public, max-age=86400, stale-while-revalidate=604800, stale-if-error=604800"
+        },
+        "fail": "original",
+        "convert": {
+            "converters": [
+                {
+                    "converter": "cwebp",
+                    "options": {
+                        "use-nice": true,
+                        "try-common-system-paths": true,
+                        "try-supplied-binary-for-os": true,
+                        "method": 6,
+                        "low-memory": false,
+                        "command-line-options": "-low_memory"
+                    }
+                }
+            ],
+            "jpeg": {
+                "encoding": "auto",
+                "quality": "auto",
+                "default-quality": 70,
+                "max-quality": 80,
+                "near-lossless": 60
+            },
+            "png": {
+                "encoding": "auto",
+                "quality": 85,
+                "near-lossless": 60,
+                "alpha-quality": 85
+            },
+            "metadata": "none",
+            "log-call-arguments": true
+        }
+    }
+}

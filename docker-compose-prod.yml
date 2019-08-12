@@ -1,0 +1,48 @@
+version: '2'
+
+networks:
+    financeone_prod:
+        driver: bridge
+
+services:
+    php:
+        image: estrategiamktdigital/php7.1-wordpress
+        container_name: financeone_php
+        ports:
+            - "9000:9000"
+        tty: true
+        expose:
+            - 9000
+        volumes:
+            - ${APP_PATH}:/var/www/${APP_NAME}
+            - ./crawler/tmp/:/var/www/${APP_NAME}/crawler/tmp/
+            - ./wp-config.php:/var/www/${APP_NAME}/wp-config.php
+            # - ./docker/cron.conf:/etc/crontabs/root
+            - ./logs/${APP_NAME}/:/var/www/${APP_NAME}/logs/
+        # command: crond
+        environment:
+            MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_HOST: ${MYSQL_HOST}
+        networks:
+            - financeone_prod
+
+    nginx:
+        #image: nginx
+        image: estrategiamktdigital/nginx-optimized
+        container_name: financeone_nginx
+        entrypoint: nginx -g "daemon off;" -c /etc/nginx/nginx.conf
+        tty: true
+        ports:
+            - 80:80
+            - 443:443
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx/
+            - ./docker/application.prod.conf:/etc/nginx/conf.d/application.conf
+        networks:
+            - financeone_prod

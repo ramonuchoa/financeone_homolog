@@ -1,0 +1,49 @@
+server {
+    listen 80;
+    server_name www.financeone.com.br;
+    return 301 https://financeone.com.br$request_uri;
+}
+
+server {
+    listen 80;
+    listen 443;
+    ssl     on;
+    ssl_certificate /var/www/finance-one/.data/db/finaceone_key.pem;
+    ssl_certificate_key /var/www/finance-one/.data/db/finace-private/finace.key;
+    server_name financeone.com.br;
+    root /var/www/finance-one;
+    
+    index index.html index.htm index.php;
+    
+    charset utf-8;
+
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js)$ {
+        expires 365d;
+        log_not_found off;
+        access_log off;
+    }
+
+    location ~* \.(pdf)$ {
+        expires 30d;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+    
+    location ~ \.php$ {
+        fastcgi_pass php-upstream;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_intercept_errors off;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+}

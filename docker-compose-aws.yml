@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    php:
+        image: wordpress:php7.1
+        container_name: aws_financeone_php
+        ports:
+            - "80:80"
+        tty: true
+        expose:
+            - 80
+            - 3306
+        volumes:
+            - ${APP_PATH}:/var/www/html
+            - ./crawler/tmp/:/var/www/html/crawler/tmp/
+            - ./wp-config.php:/var/www/html/wp-config.php
+            - ./logs/${APP_NAME}/:/var/www/html/logs/
+        environment:
+            MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_HOST: ${MYSQL_HOST}

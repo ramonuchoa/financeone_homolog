@@ -1,0 +1,17 @@
+{
+    "name": "financeone/crawler",
+    "authors": [
+        {
+            "name": "Eduardo Lima",
+            "email": "eduardo@estrategiamktdigital.com"
+        }
+    ],
+    "require": {
+        "fguillot/picofeed": "^0.1.33",
+        "fabpot/goutte": "^3.2",
+        "illuminate/database": "^5.4",
+        "dg/rss-php": "^1.2",
+        "jenssegers/date": "^3.2",
+        "cocur/slugify": "^2.5"
+    }
+}
