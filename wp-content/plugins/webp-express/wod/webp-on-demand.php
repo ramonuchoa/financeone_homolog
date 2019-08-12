@@ -14,12 +14,12 @@ use \WebPExpress\SanityException;
 use \WebPExpress\ValidateException;
 use \WebPExpress\Validate;
 
-class WebPOnDempand
+class WebPOnDemand
 {
 
     private static $docRoot;
 
-    private static function exitWithError($msg) {
+    public static function exitWithError($msg) {
         header('X-WebP-Express-Error: ' . $msg, true);
         echo $msg;
         exit;
@@ -108,10 +108,14 @@ class WebPOnDempand
 
 
             // Validate that WebPExpress was configured to redirect to this conversion script
+            // (but do not require that for Nginx)
             // ------------------------------------------------------------------------------
             $checking = 'settings';
-            if (!isset($wodOptions['enable-redirection-to-converter']) || ($wodOptions['enable-redirection-to-converter'] === false)) {
-                throw new ValidateException('Redirection to conversion script is not enabled');
+            if (stripos($_SERVER["SERVER_SOFTWARE"], 'nginx') === false) {
+                if (!isset($wodOptions['enable-redirection-to-converter']) || ($wodOptions['enable-redirection-to-converter'] === false)) {
+                    throw new ValidateException('Redirection to conversion script is not enabled');
+                }
+
             }
 
 
@@ -219,9 +223,11 @@ class WebPOnDempand
 // Only protect on Apache. We know for sure that the method is not reliable on nginx. We have not tested on litespeed yet, so we dare not.
 if (stripos($_SERVER["SERVER_SOFTWARE"], 'apache') !== false && stripos($_SERVER["SERVER_SOFTWARE"], 'nginx') === false) {
     if (strpos($_SERVER['REQUEST_URI'], 'webp-on-demand.php') !== false) {
-        WebPOnDempand::exitWithError('It seems you are visiting this file (plugins/webp-express/wod/webp-on-demand.php) directly. We do not allow this.');
+        WebPOnDemand::exitWithError(
+            'It seems you are visiting this file (plugins/webp-express/wod/webp-on-demand.php) directly. We do not allow this.'
+        );
         exit;
     }
 }
 
-WebPOnDempand::process();
+WebPOnDemand::process();
