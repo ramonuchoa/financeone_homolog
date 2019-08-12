@@ -83,9 +83,6 @@ class ConvertHelperIndependent
                     $destination = $source . '.webp';
                 } else {
                     $destination = preg_replace('/\\.(jpe?g|png)$/', '', $source) . '.webp';
-                    // TODO: make this check work with symlinks
-                    //$destination = SanityCheck::absPathIsInDocRoot($source . '.webp');
-                    $destination = $source . '.webp';
                 }
             } else {
                 $docRoot = rtrim(realpath($_SERVER["DOCUMENT_ROOT"]), '/');
@@ -329,7 +326,7 @@ APACHE
 
         $text = preg_replace('#' . preg_quote($_SERVER["DOCUMENT_ROOT"]) . '#', '[doc-root]', $text);
 
-        $text = 'WebP Express 0.14.21. ' . $msgTop . ', ' . date("Y-m-d H:i:s") . "\n\r\n\r" . $text;
+        $text = 'WebP Express 0.14.22. ' . $msgTop . ', ' . date("Y-m-d H:i:s") . "\n\r\n\r" . $text;
 
         $logFile = self::getLogFilename($source, $logDir);
 

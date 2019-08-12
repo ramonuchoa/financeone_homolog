@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=H5F3Z6S3
 Tags: cf7, contact form 7, contact form 7 db, contact form db, contact form seven, contact form storage, export contact form, save contact form, wpcf7
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 1.2.4.6
+Stable tag: 1.2.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -56,37 +56,56 @@ Extensions : [Contact form 7 more Add-ons](https://ciphercoin.com/contact-form-7
 1. Admin
 
 == Changelog ==
-= 1.0.0 =
+= 1.2.4.7 =
+Action hook name changed to cfdb7_before_save 
 
-First version of plugin.
-= 1.1.6 =
-Fixed minor bugs
-Add action hooks
-= 1.1.7 =
-Add filter hooks
-Multisite support
+= 1.2.4.6 =
+Optimized csv export memory usage 
+
+= 1.2.4.3 =
+Responsive issue fixed 
+
+= 1.2.4 =
+Fixed admin notification bug
+
+= 1.2.3 =
+Fixed csv export issue 
+
+= 1.2.2 =
+Added cfdb7_access capability
+
+= 1.2.1 =
+Multisite network bug fixed 
+
+= 1.2 =
+Fixed csv export bug
 
 = 1.1.9 =
 Fixed Sorting bugs
 
-== 1.2 ==
-Fixed csv export bug
+= 1.1.7 =
+Add filter hooks
+Multisite support
 
-== 1.2.1 ==
-Multisite network bug fixed 
+= 1.1.6 =
+Fixed minor bugs
+Add action hooks
 
-== 1.2.2 ==
-Added cfdb7_access capability
+= 1.0.0 =
+First version of plugin.
 
-== 1.2.3 ==
-Fixed csv export issue 
 
-== 1.2.4 ==
-Fixed admin notification bug
 
-== 1.2.4.3 ==
-Responsive issue fixed 
 
-== 1.2.4.6 ==
-Optimized csv export memory usage 
+
+
+
+
+
+
+
+
+
+
+
 
