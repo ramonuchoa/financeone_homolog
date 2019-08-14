@@ -101,7 +101,7 @@
     "fail": "original",
     "success-response": "converted",
     "alter-html": {
-        "enabled": true,
+        "enabled": false,
         "only-for-webp-enabled-browsers": false,
         "alter-html-add-picturefill-js": true,
         "only-for-webps-that-exists": false,
